@@ -35,6 +35,9 @@
 #define LEAST_LED_BRIGHTNESS 1    // least led brightness of button led
 #define DEFAULT_LED_BRIGHTNESS 25 // Default led brightness of button led
 
+#define increase_step 5  // steps to increase the brightness value 
+#define decreae_setp 5   // steps to decrease the brightness value  
+
 /** Application Global Variable */
 volatile int dimTime; // dim time calculated by (75 * (dim_level))
 volatile byte dimValue, dimValue_temp;           // dim level var
@@ -106,7 +109,7 @@ void top_button_event_handler(int id, pin_event_t eventType) {
     } else {
       Serial.print("last dimm value was :");
       Serial.println(dimValue_temp);
-      dimValue_temp += 10;                                                        // increase dimm value by 10
+      dimValue_temp += 5;                                                        // increase dimm value by 5 // neeed to repleace it with increae step value
       if (dimValue_temp > 100) {
         dimValue_temp = 100;
       }
@@ -139,7 +142,7 @@ void bottom_button_event_handler(int id, pin_event_t eventType) {
     if (a < 0) {
       return;
     }
-    dimValue_temp -= 10;                                                      // decrease dim value by 10 
+    dimValue_temp -= 5;                                                      // decrease dim value by 5 // need to repalce this with decrese step value
   } else if (eventType == KEY_EVENT_LONG_PRESSED) {
     /* Turn off dimming */
     Serial.println("Bottom pin long pressed");
