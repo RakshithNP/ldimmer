@@ -1,3 +1,5 @@
+// This program is for single module dimmer which has a dual module top pcb hardware to control the brightness 
+// long press the bottom button to turn off the dimmer immediately 
 #include "Modlib_EEPROM_Config.h"
 #include "src/button/button.h"
 #include "src/modlib/I2C.h"
@@ -5,7 +7,7 @@
 #include <EEPROM.h>
 #include <Wire.h>
 /** firmware version */
-#define FIRMWARE_V_C 1
+#define FIRMWARE_V_C 1.0
 
 #define TRIAC_PIN 2      // triac trigger pin
 #define ZCD_DETECT_PIN 3 // zcd input as interrupt
@@ -104,7 +106,7 @@ void top_button_event_handler(int id, pin_event_t eventType) {
     } else {
       Serial.print("last dimm value was :");
       Serial.println(dimValue_temp);
-      dimValue_temp += 10;
+      dimValue_temp += 10;                                                        // increase dimm value by 10
       if (dimValue_temp > 100) {
         dimValue_temp = 100;
       }
@@ -137,7 +139,7 @@ void bottom_button_event_handler(int id, pin_event_t eventType) {
     if (a < 0) {
       return;
     }
-    dimValue_temp -= 10;
+    dimValue_temp -= 10;                                                      // decrease dim value by 10 
   } else if (eventType == KEY_EVENT_LONG_PRESSED) {
     /* Turn off dimming */
     Serial.println("Bottom pin long pressed");
